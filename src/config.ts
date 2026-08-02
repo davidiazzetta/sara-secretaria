@@ -30,8 +30,10 @@ export const config = {
   },
 
   kommo: {
-    subdomain: required('KOMMO_SUBDOMAIN'),
-    accessToken: required('KOMMO_ACCESS_TOKEN'),
+    // Opcionais até o Kommo ser configurado — a Sara sobe e funciona (cérebro +
+    // agenda) mesmo sem eles; o envio/CRM via Kommo só passa a operar depois.
+    subdomain: optional('KOMMO_SUBDOMAIN'),
+    accessToken: optional('KOMMO_ACCESS_TOKEN'),
     pipelineId: Number(optional('KOMMO_PIPELINE_ID', '0')),
     stages: {
       novoLead: Number(optional('KOMMO_STAGE_NOVO_LEAD', '0')),
