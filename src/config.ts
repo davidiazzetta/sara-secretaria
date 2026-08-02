@@ -48,10 +48,15 @@ export const config = {
   google: {
     clientId: optional('GOOGLE_CLIENT_ID'),
     clientSecret: optional('GOOGLE_CLIENT_SECRET'),
-    redirectUri: optional(
-      'GOOGLE_REDIRECT_URI',
-      'http://localhost:3000/oauth/google/callback',
-    ),
+    // Endereço de callback do OAuth. Prioridade:
+    // 1) GOOGLE_REDIRECT_URI explícito, se definido;
+    // 2) URL pública que o Render injeta automaticamente (RENDER_EXTERNAL_URL);
+    // 3) localhost (uso local).
+    redirectUri:
+      optional('GOOGLE_REDIRECT_URI') ||
+      (process.env.RENDER_EXTERNAL_URL
+        ? `${process.env.RENDER_EXTERNAL_URL.trim()}/oauth/google/callback`
+        : 'http://localhost:3000/oauth/google/callback'),
     calendarId: optional('GOOGLE_CALENDAR_ID', 'primary'),
   },
 } as const;
